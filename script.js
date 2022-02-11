@@ -49,6 +49,7 @@ function cons(element){
 // }
     user = new Enter(element.parentElement.children[1].value, element.parentElement.children[3].value, element.parentElement.children[5].value);
     console.log(user);
+    alert('Вы зарегистрировались!')
 }
 
 // const enter = new Object();
@@ -148,6 +149,22 @@ function product (array, containerForProducts){
     })
 }
 
+function searchFunction(){
+    // console.log(element.value);
+    const inputValue = document.querySelector('.input').value
+    // const znach = element.value;
+    const text = document.querySelectorAll('.text');
+    if (inputValue !== ''){
+        text.forEach(function(element){
+            if(element.textContent.search(inputValue) == -1){
+                element.classList.add('none')
+            } else{
+                element.classList.add('inline')
+            }
+        })
+    }
+}
+
 function shop(){
     const main = document.querySelector('.main');
     main.classList.toggle('none');
@@ -157,8 +174,8 @@ function shop(){
     const logo = document.createElement('div');
     logo.innerHTML = `<img onclick = "mainT()" src="./img/logo_top_1.png">`
     mainDiv.appendChild(logo);
-    const input = document.createElement('input');
-    input.innerHTML = `<input type="text" name="text" placeholder = "Enter product name">`
+    const input = document.createElement('div');
+    input.innerHTML = `<input oninput = "searchFunction()" type="search" class = "input" name="text" placeholder = "Enter product name">`
     mainDiv.appendChild(input);
     const img = document.createElement('div');
     img.innerHTML = `<img class = "icon" src="./img/svgexport-5.svg">`
@@ -174,11 +191,72 @@ function shop(){
     const btn = document.createElement('button');
     btn.innerHTML = `exit`
     mainDiv.appendChild(btn);
+    const newTov = document.createElement('div');
+    newTov.innerHTML = `<img class = "bas" onclick = "newTov()" src = "https://cdn-icons-png.flaticon.com/512/148/148764.png">`
+    mainDiv.appendChild(newTov);
     const tovarDiv = document.createElement('div');
     tovarDiv.classList.toggle('tovarDiv');
     tovarDiv.classList.toggle('grid');
     document.body.appendChild(tovarDiv);
     product(tovari, tovarDiv);
+}
+
+
+function newTov(){
+    const alert = document.createElement('div');
+    alert.classList.add('alert');
+    document.body.appendChild(alert);
+
+    const title = document.createElement('p');
+    title.classList.add('inoTxt');
+    title.innerHTML = `Добавьте свой продукт`;
+    alert.appendChild(title);
+
+    const inputName = document.createElement('p');
+    inputName.innerHTML = `<input id = "inputName" type="text" name="text" placeholder = "Введите название продукта">`;
+    inputName.classList.add('inpV');
+    alert.appendChild(inputName);
+
+    const inputCost = document.createElement('p');
+    inputCost.innerHTML = `<input id = "inputCost" type="text" name="text" placeholder = "Сколько стоит этот продукт?">`;
+    inputCost.classList.add('inpV');
+    alert.appendChild(inputCost);
+
+    const inputIMG = document.createElement('p');
+    inputIMG.innerHTML = `<input id = "inputIMG" type="text" name="text" placeholder = "Вставте ссылку на изображение продукта">`;
+    inputIMG.classList.add('inpV');
+    alert.appendChild(inputIMG);
+
+    const btn = document.createElement('button');
+    btn.classList.add('btn');
+    btn.innerHTML = `Добавить продукт`
+    alert.appendChild(btn);
+    btn.addEventListener('click', newTovaradd);
+}
+
+function newTovaradd(){
+    const alert = document.querySelector('.alert');
+    const inputAlertName = alert.querySelector('#inputName').value;
+    const inputAlertCost = alert.querySelector('#inputCost').value;
+    const inputAlertImg = alert.querySelector('#inputIMG').value;
+    if(inputAlertName !== '' && inputAlertCost !== '' && inputAlertImg !== ''){
+        tovari.push({
+            img : inputAlertImg, 
+            title: inputAlertName, 
+            sale : inputAlertCost
+        })
+        alert.remove();
+        const remTovarDiv = document.querySelector('.tovarDiv');
+        remTovarDiv.remove();
+        const tovarDiv = document.createElement('div');
+        tovarDiv.classList.toggle('tovarDivNew');
+        tovarDiv.classList.toggle('grid');
+        document.body.appendChild(tovarDiv);
+        product(tovari, tovarDiv);
+    }else {
+        alert('пустое поле!')
+    }
+    console.log(tovari);
 }
 
 const busket = [];

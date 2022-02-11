@@ -186,3 +186,37 @@
     top: 35px;
     left: 77%;
 }
+
+.alert{
+    position: fixed;
+    top: 35%;
+    left: 31%;
+    background-color: white;
+    width: 531px;
+    height: 329px;
+    box-shadow: 0px 4px 9px rgb(0 0 0 / 6%);
+}
+
+.inoTxt{
+    font-size: 20px;
+    margin-left: 181px;
+    color: green;
+}
+
+.inpV input{
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 69px;
+    width: 400px;
+    height: 17px;
+}
+
+.btn{
+    width: 425px;
+    margin-left: 69px;
+    margin-top: 7px;
+    height: 36px;
+    background: green;
+    border: none;
+    color: white;
+}
